@@ -52,7 +52,7 @@ export default {
 
     onSubmitClicked(newTodo) {
         this.todoList.unshift(newTodo);
-      },
+    },
 
 
   },
