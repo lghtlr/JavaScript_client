@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" @keyup.enter="onSubmitClicked">
         <input type="text" v-model="title" class="input">
 <!-- title так передавать или как??????????????????????????????????????????????????????????????????????????????????????????????????-->
         <button @click="onSubmitClicked" class="button">Создать todo</button>
@@ -9,18 +9,26 @@
 </template>
 
 <script>
+import { createTodo } from '@/service/dataService';
 export default {
     data: () => ({
     title: '',
   }),
   methods: {
-        onSubmitClicked() {
+        async onSubmitClicked() {
             if (this.title !== ''){
-                this.$emit('create-todo', {
+                const createdTodo = await createTodo({ 
+                    title: this.title
+                    });
+                this.$emit('create-todo', createdTodo /*{
+                    
+
                     id: Date.now(),
                     title: this.title,
                     completed: false,
-                });
+                    
+                }*/);
+                this.title = '';
             }
         },
     },

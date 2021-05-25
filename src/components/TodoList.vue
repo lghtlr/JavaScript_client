@@ -1,6 +1,6 @@
 <template>
     <ul class="list-content">
-        <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" @remove-todo="onRemovedClicked"/>
+         <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" @refresh="$emit('refresh')"/>
         <!-- v-for="todo in todos" :key="todo.id" -->
     </ul>
 </template>
@@ -12,11 +12,6 @@ export default{
     props: ['todos'],
     components: {
         TodoItem,
-    },
-    methods: {
-        onRemovedClicked(id) {
-            this.$emit('remove-todo', id);
-        },
     },
 };
 </script>

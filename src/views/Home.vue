@@ -4,7 +4,7 @@
     <div v-if="loading" class="loading">
       Loading....
     </div>
-    <TodoList v-else-if="todoList && todoList.length" :todos="todoList" @remove-todo="onRemoveClicked" />
+    <TodoList v-else-if="todoList && todoList.length" :todos="todoList" @refresh="fetchTodos" />
     <div v-else>
       Список пуст((
     </div>
@@ -18,6 +18,7 @@
 <script>
 import TodoList from '@/components/TodoList.vue';
 import CreateTodo from '@/components/CreateTodo.vue';
+import { fetchTodos } from '@/service/dataService';
 export default {
   name: 'Home',
   components: {
@@ -35,11 +36,12 @@ export default {
     async fetchTodos() {
       try{
         this.loading = true;
-        const response = await fetch(
-        'https://jsonplaceholder.typicode.com/todos?_limit=5',
+        this.todoList = await fetchTodos();
+        /*const response = await fetch(
+          'https://jsonplaceholder.typicode.com/todos?_limit=5',
         );
-        this.todoList = await response.json();
-      } catch (error) {
+        this.todoList = await response.json();*/
+      } catch (exception) {
         
       } finally{
         this.loading = false;
